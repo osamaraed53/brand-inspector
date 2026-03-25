@@ -1,0 +1,6 @@
+@BrandInspector_HostAddress = http://localhost:5112
+
+GET {{BrandInspector_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
