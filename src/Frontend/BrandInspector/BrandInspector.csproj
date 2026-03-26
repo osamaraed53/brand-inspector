@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Models\BrandConfig.cs" />
     <Compile Include="Models\ComplianceError.cs" />
+    <Compile Include="Enums\IssueTypes.cs" />
     <Compile Include="Models\TextRunInfo.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
