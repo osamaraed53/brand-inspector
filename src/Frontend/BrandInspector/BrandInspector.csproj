@@ -52,6 +52,7 @@
     <Compile Include="Models\TextRunInfo.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Services\BrandClientService.cs" />
     <Compile Include="Services\ScannerService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
