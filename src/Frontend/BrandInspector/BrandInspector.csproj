@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="Models\BrandConfig.cs" />
     <Compile Include="Models\ComplianceError.cs" />
     <Compile Include="Enums\IssueTypes.cs" />
