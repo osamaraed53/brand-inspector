@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BrandInspector.Views.Interfaces;
+using System;
 
 namespace BrandInspector.Views
 {
-    public interface ILoginView
+    public interface ILoginView : IView
     {
         string Username { get; }
         string Password { get; }
         void ShowError(string message);
-        void CloseView();
 
         event EventHandler LoginClicked;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrandInspector.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,31 +11,38 @@ using System.Windows.Forms;
 
 namespace BrandInspector.Views
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form , IMainView
     {
+        public string SelectedFilePath {get ; set;}
+
+        public event EventHandler BrowseClicked;
+        public event EventHandler ScanFontsClicked;
+        public event EventHandler ScanColorsClicked;
+        public event EventHandler ScanSizesClicked;
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
 
+        public void OpenView()
+        {
+            Application.Run(this);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        public void CloseView()
         {
-
+            Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+
+        private void MainForm_Load(object sender, EventArgs e) { }
+      
+
+        public void DisplayResults(IList<TextRunInfo> results)
         {
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
+            throw new NotImplementedException();
         }
     }
 }

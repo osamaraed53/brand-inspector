@@ -48,7 +48,7 @@
             this.mainLabel.BackColor = System.Drawing.SystemColors.Control;
             this.mainLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(5)))), ((int)(((byte)(173)))));
             this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Click += new System.EventHandler(this.header_Click);
+            //this.mainLabel.Click += new System.EventHandler(this.header_Click);
             // 
             // panel2
             // 
@@ -59,7 +59,7 @@
             this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            //this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // passwordTxt
             // 
@@ -76,7 +76,7 @@
             // 
             resources.ApplyResources(this.passwordLabel, "passwordLabel");
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Click += new System.EventHandler(this.label1_Click_2);
+            //this.passwordLabel.Click += new System.EventHandler(this.label1_Click_2);
             // 
             // usernameTxt
             // 
