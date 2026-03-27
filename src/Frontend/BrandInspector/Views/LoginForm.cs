@@ -23,15 +23,7 @@ namespace BrandInspector.Views
 
         public event EventHandler LoginClicked;
 
-        public void OpenView()
-        {
-            Application.Run(this);
-        }
 
-        public void CloseView()
-        {
-            Close();
-        }
 
         public void ShowError(string message)
         {

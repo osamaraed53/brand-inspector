@@ -5,7 +5,7 @@ using BrandInspector.Views.Interfaces;
 
 namespace BrandInspector.Views
 {
-    public interface IMainView : IView
+    public interface IMainView 
     {
         string SelectedFilePath { get; set; }
 

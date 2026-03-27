@@ -25,17 +25,6 @@ namespace BrandInspector.Views
         }
 
 
-        public void OpenView()
-        {
-            Application.Run(this);
-        }
-
-        public void CloseView()
-        {
-            Close();
-        }
-
-
 
         private void MainForm_Load(object sender, EventArgs e) { }
       

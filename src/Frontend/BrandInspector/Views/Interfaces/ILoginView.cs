@@ -3,7 +3,7 @@ using System;
 
 namespace BrandInspector.Views
 {
-    public interface ILoginView : IView
+    public interface ILoginView 
     {
         string Username { get; }
         string Password { get; }
