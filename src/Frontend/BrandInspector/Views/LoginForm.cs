@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrandInspector.Presenters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace BrandInspector.Views
 {
     public partial class LoginForm : Form , ILoginView
     {
+        private readonly LoginPresenter _presenter;
         public LoginForm()
         {
             InitializeComponent();
@@ -21,7 +23,6 @@ namespace BrandInspector.Views
 
         public string Password { get; private set; }
 
-        public event EventHandler LoginClicked;
 
 
 
@@ -31,10 +32,11 @@ namespace BrandInspector.Views
         }
 
         private void LoginForm_Load(object sender, EventArgs e) { }
-       
 
+        private void loginBtn_Click(object sender, EventArgs e)
+        {
+            //_presenter.(txtUser.Text, txtPass.Text);
 
-
-
+        }
     }
 }

@@ -57,7 +57,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1154, 83);
             this.panel1.TabIndex = 0;
-            //this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // tableLayoutPanel1
             // 
@@ -188,7 +187,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1154, 62);
             this.panel3.TabIndex = 2;
-            //this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // panel4
             // 

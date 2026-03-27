@@ -28,61 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             System.Windows.Forms.Button loginBtn;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.mainLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.passwordTxt = new System.Windows.Forms.TextBox();
-            this.usernameLabel = new System.Windows.Forms.Label();
-            this.passwordLabel = new System.Windows.Forms.Label();
-            this.usernameTxt = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.usernameLabel = new System.Windows.Forms.Label();
+            this.usernameTxt = new System.Windows.Forms.TextBox();
+            this.passwordTxt = new System.Windows.Forms.TextBox();
+            this.passwordLabel = new System.Windows.Forms.Label();
             loginBtn = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // mainLabel
-            // 
-            resources.ApplyResources(this.mainLabel, "mainLabel");
-            this.mainLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.mainLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(5)))), ((int)(((byte)(173)))));
-            this.mainLabel.Name = "mainLabel";
-            //this.mainLabel.Click += new System.EventHandler(this.header_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Controls.Add(this.panel1);
-            this.panel2.Controls.Add(loginBtn);
-            this.panel2.Controls.Add(this.mainLabel);
-            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            //this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // passwordTxt
-            // 
-            this.passwordTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.passwordTxt, "passwordTxt");
-            this.passwordTxt.Name = "passwordTxt";
-            // 
-            // usernameLabel
-            // 
-            resources.ApplyResources(this.usernameLabel, "usernameLabel");
-            this.usernameLabel.Name = "usernameLabel";
-            // 
-            // passwordLabel
-            // 
-            resources.ApplyResources(this.passwordLabel, "passwordLabel");
-            this.passwordLabel.Name = "passwordLabel";
-            //this.passwordLabel.Click += new System.EventHandler(this.label1_Click_2);
-            // 
-            // usernameTxt
-            // 
-            this.usernameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.usernameTxt, "usernameTxt");
-            this.usernameTxt.Name = "usernameTxt";
             // 
             // loginBtn
             // 
@@ -94,6 +52,24 @@
             resources.ApplyResources(loginBtn, "loginBtn");
             loginBtn.Name = "loginBtn";
             loginBtn.UseVisualStyleBackColor = false;
+            loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
+            // 
+            // mainLabel
+            // 
+            resources.ApplyResources(this.mainLabel, "mainLabel");
+            this.mainLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.mainLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(5)))), ((int)(((byte)(173)))));
+            this.mainLabel.Name = "mainLabel";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(loginBtn);
+            this.panel2.Controls.Add(this.mainLabel);
+            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
             // 
             // panel1
             // 
@@ -103,6 +79,28 @@
             this.panel1.Controls.Add(this.passwordTxt);
             this.panel1.Controls.Add(this.passwordLabel);
             this.panel1.Name = "panel1";
+            // 
+            // usernameLabel
+            // 
+            resources.ApplyResources(this.usernameLabel, "usernameLabel");
+            this.usernameLabel.Name = "usernameLabel";
+            // 
+            // usernameTxt
+            // 
+            this.usernameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.usernameTxt, "usernameTxt");
+            this.usernameTxt.Name = "usernameTxt";
+            // 
+            // passwordTxt
+            // 
+            this.passwordTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.passwordTxt, "passwordTxt");
+            this.passwordTxt.Name = "passwordTxt";
+            // 
+            // passwordLabel
+            // 
+            resources.ApplyResources(this.passwordLabel, "passwordLabel");
+            this.passwordLabel.Name = "passwordLabel";
             // 
             // LoginForm
             // 

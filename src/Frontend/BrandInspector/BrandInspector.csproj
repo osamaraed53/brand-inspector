@@ -66,9 +66,13 @@
     <Compile Include="Models\ComplianceError.cs" />
     <Compile Include="Enums\IssueTypes.cs" />
     <Compile Include="Models\TextRunInfo.cs" />
+    <Compile Include="Presenters\Interfaces\ILoginPresenter.cs" />
+    <Compile Include="Presenters\Interfaces\IMainPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Services\BrandClientService.cs" />
+    <Compile Include="Services\Interfaces\INavigationService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ScannerService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
