@@ -5,6 +5,7 @@ using BrandInspector.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
+using BrandInspector.Presenters.Interfaces;
 
 namespace BrandInspector
 {
@@ -16,29 +17,18 @@ namespace BrandInspector
         static void Main()
         {
 
-            var services = new ServiceCollection();
+            ServiceProvider = DependencyInjection.Configure();
 
-            // Services
-            services.AddSingleton<INavigationService, NavigationService>();
-
-            // Presenters
-            services.AddTransient<LoginPresenter>();
-            services.AddTransient<MainPresenter>();
-
-            // Forms
-            services.AddTransient<LoginForm>();
-            services.AddTransient<MainForm>();
-
-            // Register services
-            services.AddTransient<MainForm>();
-
-            ServiceProvider = services.BuildServiceProvider();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            var loginForm = ServiceProvider.GetRequiredService<LoginForm>();
+            var loginForm = ServiceProvider.GetRequiredService<MainForm>();
             Application.Run(loginForm);
         }
+
+
+
     }
+
 }
