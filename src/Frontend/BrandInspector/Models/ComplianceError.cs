@@ -7,15 +7,15 @@ namespace BrandInspector.Models
 
         public int SlideNumber { get; set; }
 
-        public int  ShapId {  get; set; }
+        public string ShapeId { get; set; }
 
         public string ShapeType { get; set; }
 
-        public IssueTypes IssueTypes { get; set; } 
+        public IssueTypes IssueType { get; set; }
 
         public string SampleText { get; set; }
 
-        public string Actual {  get; set; }
+        public string Actual { get; set; }
 
         public string Expected { get; set; }
 

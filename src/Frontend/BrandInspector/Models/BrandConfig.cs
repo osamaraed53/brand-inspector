@@ -4,7 +4,7 @@ namespace BrandInspector.Models
 {
     public class BrandConfig
     {
-        public IList<string> Brands { get; set; }
+        public IList<string> Colors { get; set; }
         public IList<string> Fonts { get; set; }
         public IList<double> SizesPt { get; set; }
 

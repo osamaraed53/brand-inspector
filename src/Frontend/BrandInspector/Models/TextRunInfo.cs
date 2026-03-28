@@ -5,7 +5,7 @@ namespace BrandInspector.Models
     public class TextRunInfo
     {
 
-        public string SlideNumber { get; set; }
+        public int SlideNumber { get; set; }
         
         public string ShapeType { get; set; }
 
@@ -15,7 +15,7 @@ namespace BrandInspector.Models
 
         public double FontSizePt { get; set; }
 
-        public double ColorHex { get; set; }
+        public string ColorHex { get; set; }
 
 
         //`TextRunInfo`: SlideNumber, ShapeType, SampleText, FontFamily, FontSizePt, ColorHex.
