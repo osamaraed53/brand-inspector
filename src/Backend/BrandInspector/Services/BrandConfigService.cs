@@ -24,29 +24,29 @@ public class BrandConfigService(IApplicationDbContext context) : IBrandConfigSer
        await context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<string>> GetBrandFonts() 
+    public async Task<IEnumerable<string>> GetBrandFonts(CancellationToken cancellationToken) 
     {
-        var brand = await context.Brands.FirstOrDefaultAsync();
+        var brand = await context.Brands.FirstOrDefaultAsync(cancellationToken);
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
         return brand.BrandConfig.Fonts ?? [];
     }
 
-    public async Task<IEnumerable<string>> GetBrandColors()
+    public async Task<IEnumerable<string>> GetBrandColors(CancellationToken cancellationToken)
     {
 
-        var brand = await context.Brands.FirstOrDefaultAsync();
+        var brand = await context.Brands.FirstOrDefaultAsync(cancellationToken);
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
         return brand.BrandConfig.Colors ?? [];
     }
 
-    public async Task<IEnumerable<double>> GetBrandSizes()
+    public async Task<IEnumerable<double>> GetBrandSizes(CancellationToken cancellationToken)
     {
 
-        var brand = await context.Brands.FirstOrDefaultAsync();
+        var brand = await context.Brands.FirstOrDefaultAsync(cancellationToken);
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
