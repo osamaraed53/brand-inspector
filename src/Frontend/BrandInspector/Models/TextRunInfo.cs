@@ -6,7 +6,8 @@ namespace BrandInspector.Models
     {
 
         public int SlideNumber { get; set; }
-        
+        // Note I'm add this 
+        public string ShapeId { get; set; }
         public string ShapeType { get; set; }
 
         public string SampleText {  get; set; }
@@ -18,6 +19,5 @@ namespace BrandInspector.Models
         public string ColorHex { get; set; }
 
 
-        //`TextRunInfo`: SlideNumber, ShapeType, SampleText, FontFamily, FontSizePt, ColorHex.
     }
 }

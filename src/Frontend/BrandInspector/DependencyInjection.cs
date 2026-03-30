@@ -16,6 +16,7 @@ namespace BrandInspector
             RegisterServices(services);
             RegisterPresenters(services);
             RegisterForms(services);
+            RegisterPresenters(services);
 
             return services.BuildServiceProvider();
         }
@@ -23,6 +24,8 @@ namespace BrandInspector
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddScoped<IScannerService, ScannerService>();
+
         }
 
         private static void RegisterPresenters(IServiceCollection services)
