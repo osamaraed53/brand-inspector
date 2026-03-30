@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -42,13 +43,21 @@
             this.sizeBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.mainAreaPanel = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.leftPanelMainLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.treeErrors = new System.Windows.Forms.TreeView();
             this.errorsDataGridView = new System.Windows.Forms.DataGridView();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.mainAreaPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.leftPanelMainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,6 +73,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
@@ -79,6 +89,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79F));
@@ -112,6 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
@@ -135,6 +147,7 @@
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tableLayoutPanel3.ColumnCount = 5;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.994699F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.52663F));
@@ -190,7 +203,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 499);
             this.panel3.Name = "panel3";
@@ -200,57 +213,104 @@
             // mainAreaPanel
             // 
             this.mainAreaPanel.BackColor = System.Drawing.SystemColors.Highlight;
-            this.mainAreaPanel.Controls.Add(this.errorsDataGridView);
-            this.mainAreaPanel.Controls.Add(this.panel5);
+            this.mainAreaPanel.Controls.Add(this.splitContainer1);
             this.mainAreaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainAreaPanel.Location = new System.Drawing.Point(0, 83);
             this.mainAreaPanel.Name = "mainAreaPanel";
             this.mainAreaPanel.Size = new System.Drawing.Size(1164, 416);
             this.mainAreaPanel.TabIndex = 3;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.leftPanelMainLayout);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.errorsDataGridView);
+            this.splitContainer1.Size = new System.Drawing.Size(1164, 416);
+            this.splitContainer1.SplitterDistance = 250;
+            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // leftPanelMainLayout
+            // 
+            this.leftPanelMainLayout.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.leftPanelMainLayout.ColumnCount = 1;
+            this.leftPanelMainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.leftPanelMainLayout.Controls.Add(this.label2, 0, 0);
+            this.leftPanelMainLayout.Controls.Add(this.treeErrors, 0, 1);
+            this.leftPanelMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftPanelMainLayout.Location = new System.Drawing.Point(0, 0);
+            this.leftPanelMainLayout.Name = "leftPanelMainLayout";
+            this.leftPanelMainLayout.RowCount = 2;
+            this.leftPanelMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.468487F));
+            this.leftPanelMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.53151F));
+            this.leftPanelMainLayout.Size = new System.Drawing.Size(250, 416);
+            this.leftPanelMainLayout.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(244, 26);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Errors";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // treeErrors
+            // 
+            this.treeErrors.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.treeErrors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeErrors.FullRowSelect = true;
+            this.treeErrors.HideSelection = false;
+            this.treeErrors.Location = new System.Drawing.Point(3, 29);
+            this.treeErrors.Name = "treeErrors";
+            this.treeErrors.Size = new System.Drawing.Size(244, 384);
+            this.treeErrors.TabIndex = 1;
+            this.treeErrors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
             // errorsDataGridView
             // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.errorsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.errorsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.errorsDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.errorsDataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.errorsDataGridView.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.errorsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.errorsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.errorsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GrayText;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.errorsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.errorsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.errorsDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.errorsDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.errorsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.errorsDataGridView.EnableHeadersVisualStyles = false;
-            this.errorsDataGridView.GridColor = System.Drawing.Color.LightGray;
-            this.errorsDataGridView.Location = new System.Drawing.Point(200, 0);
+            this.errorsDataGridView.Location = new System.Drawing.Point(0, 0);
             this.errorsDataGridView.Name = "errorsDataGridView";
-            this.errorsDataGridView.ReadOnly = true;
-            this.errorsDataGridView.RowHeadersVisible = false;
-            this.errorsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.errorsDataGridView.Size = new System.Drawing.Size(964, 416);
-            this.errorsDataGridView.TabIndex = 1;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.GrayText;
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 416);
-            this.panel5.TabIndex = 0;
+            this.errorsDataGridView.Size = new System.Drawing.Size(910, 416);
+            this.errorsDataGridView.TabIndex = 0;
+            this.errorsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // MainForm
             // 
@@ -270,6 +330,12 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.mainAreaPanel.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.leftPanelMainLayout.ResumeLayout(false);
+            this.leftPanelMainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -280,7 +346,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel mainAreaPanel;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button browseBtn;
@@ -290,6 +355,10 @@
         private System.Windows.Forms.Button colorsBtn;
         private System.Windows.Forms.Button sizeBtn;
         private System.Windows.Forms.TextBox filePathTxt;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TableLayoutPanel leftPanelMainLayout;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TreeView treeErrors;
         private System.Windows.Forms.DataGridView errorsDataGridView;
     }
 }
