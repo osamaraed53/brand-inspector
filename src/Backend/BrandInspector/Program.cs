@@ -14,9 +14,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
-await app.UseServices();
-
-
+app.UseServices();
 
 app.UseHttpsRedirection();
 
