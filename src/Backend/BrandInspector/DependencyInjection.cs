@@ -1,7 +1,10 @@
 ﻿using BrandInspector.Data;
 using BrandInspector.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace BrandInspector;
 
@@ -18,10 +21,7 @@ public static class DependencyInjection
 
 
         services.AddScoped<IBrandConfigService, BrandConfigService>();
-
-
-        services.AddSwaggerConfig();
-
+        services.AddScoped<IAuthService, AuthService>();
 
 
         return services;
