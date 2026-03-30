@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.browseBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.filePathTxt = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.fontsBtn = new System.Windows.Forms.Button();
             this.colorsBtn = new System.Windows.Forms.Button();
             this.sizeBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.mainAreaPanel = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.errorsDataGridView = new System.Windows.Forms.DataGridView();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -85,7 +85,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanel2.Controls.Add(this.browseBtn, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.filePathTxt, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -107,6 +107,7 @@
             this.browseBtn.TabIndex = 1;
             this.browseBtn.Text = "Browse...";
             this.browseBtn.UseVisualStyleBackColor = true;
+            this.browseBtn.Click += new System.EventHandler(this.BrowseBtn_Click);
             // 
             // label1
             // 
@@ -120,16 +121,17 @@
             this.label1.Text = "File : ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // filePathTxt
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(62, 7);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 7, 5, 5);
-            this.textBox1.MinimumSize = new System.Drawing.Size(900, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(904, 20);
-            this.textBox1.TabIndex = 4;
+            this.filePathTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filePathTxt.Enabled = false;
+            this.filePathTxt.Location = new System.Drawing.Point(62, 7);
+            this.filePathTxt.Margin = new System.Windows.Forms.Padding(5, 7, 5, 5);
+            this.filePathTxt.MinimumSize = new System.Drawing.Size(900, 20);
+            this.filePathTxt.Name = "filePathTxt";
+            this.filePathTxt.ReadOnly = true;
+            this.filePathTxt.Size = new System.Drawing.Size(904, 20);
+            this.filePathTxt.TabIndex = 4;
             // 
             // tableLayoutPanel3
             // 
@@ -160,6 +162,7 @@
             this.fontsBtn.TabIndex = 0;
             this.fontsBtn.Text = "Scan Fonts";
             this.fontsBtn.UseVisualStyleBackColor = true;
+            this.fontsBtn.Click += new System.EventHandler(this.FontsBtn_Click);
             // 
             // colorsBtn
             // 
@@ -171,6 +174,7 @@
             this.colorsBtn.TabIndex = 1;
             this.colorsBtn.Text = "Scan Colors";
             this.colorsBtn.UseVisualStyleBackColor = true;
+            this.colorsBtn.Click += new System.EventHandler(this.ColorsBtn_Click);
             // 
             // sizeBtn
             // 
@@ -182,6 +186,7 @@
             this.sizeBtn.TabIndex = 2;
             this.sizeBtn.Text = "Scan Sizes";
             this.sizeBtn.UseVisualStyleBackColor = true;
+            this.sizeBtn.Click += new System.EventHandler(this.SizeBtn_Click);
             // 
             // panel3
             // 
@@ -203,15 +208,6 @@
             this.mainAreaPanel.Size = new System.Drawing.Size(1164, 416);
             this.mainAreaPanel.TabIndex = 3;
             // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.GrayText;
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 416);
-            this.panel5.TabIndex = 0;
-            // 
             // errorsDataGridView
             // 
             this.errorsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -219,23 +215,23 @@
             this.errorsDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.errorsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.errorsDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.errorsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.errorsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.errorsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.errorsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.errorsDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
             this.errorsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.errorsDataGridView.EnableHeadersVisualStyles = false;
             this.errorsDataGridView.GridColor = System.Drawing.Color.LightGray;
@@ -246,6 +242,15 @@
             this.errorsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.errorsDataGridView.Size = new System.Drawing.Size(964, 416);
             this.errorsDataGridView.TabIndex = 1;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(200, 416);
+            this.panel5.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -258,7 +263,6 @@
             this.MinimumSize = new System.Drawing.Size(1180, 600);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -285,7 +289,7 @@
         private System.Windows.Forms.Button fontsBtn;
         private System.Windows.Forms.Button colorsBtn;
         private System.Windows.Forms.Button sizeBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox filePathTxt;
         private System.Windows.Forms.DataGridView errorsDataGridView;
     }
 }
