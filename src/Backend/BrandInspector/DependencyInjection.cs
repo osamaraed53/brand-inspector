@@ -15,6 +15,8 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString));
 
 
+
+        services.AddScoped<IBrandConfigService, BrandConfigService>();
         return services;
     }
 
