@@ -64,6 +64,8 @@
     <Compile Include="Constants\Constraints.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="DependencyInjection.cs" />
+    <Compile Include="Enums\ComplianceTypes.cs" />
+    <Compile Include="Enums\ScanTypes.cs" />
     <Compile Include="Models\BrandConfig.cs" />
     <Compile Include="Models\ComplianceError.cs" />
     <Compile Include="Enums\IssueTypes.cs" />
@@ -73,7 +75,9 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Services\BrandClientService.cs" />
+    <Compile Include="Services\Interfaces\IBrandClientService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
+    <Compile Include="Services\Interfaces\IScannerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ScannerService.cs" />
     <Compile Include="Program.cs" />

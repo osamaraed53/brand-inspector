@@ -24,6 +24,7 @@ namespace BrandInspector
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IBrandClientService, BrandClientService>();
             services.AddScoped<IScannerService, ScannerService>();
 
         }
