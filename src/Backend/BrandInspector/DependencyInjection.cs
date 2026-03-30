@@ -25,8 +25,11 @@ public static class DependencyInjection
         return services;
     }
 
-    public async static Task<WebApplication> UseServices(this WebApplication app)
+    public  static WebApplication UseServices(this WebApplication app)
     {
+
+        app.UseExceptionHandler(options => { });
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
