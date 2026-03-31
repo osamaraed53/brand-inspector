@@ -1,4 +1,6 @@
 ﻿using BrandInspector.Models;
+using BrandInspector.Presenters.Interfaces;
+using BrandInspector.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +33,11 @@ namespace BrandInspector.Views
 
         private void MainForm_Load(object sender, EventArgs e) { }
       
-
+        private void UpdateStatusBar(int total, int errors)
+        {
+            lblTotal.Text = $"Total: {total}";
+            lblErrors.Text = $"Errors: {errors}";
+        }
         public void DisplayResults(IList<TextRunInfo> results)
         {
             throw new NotImplementedException();
@@ -105,6 +111,30 @@ namespace BrandInspector.Views
             }
 
             treeErrors.ExpandAll();
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void StartLoading()
+        {
+            progressBar.Visible = true;
+            progressBar.Style = ProgressBarStyle.Marquee;
+
+            lblStatus.Text = "Scanning...";
+        }
+
+        private void StopLoading()
+        {
+            progressBar.Visible = false;
+
+            lblStatus.Text = "Ready";
         }
     }
 }

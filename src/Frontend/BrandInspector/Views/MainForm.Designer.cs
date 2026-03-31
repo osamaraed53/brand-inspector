@@ -48,10 +48,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.treeErrors = new System.Windows.Forms.TreeView();
             this.errorsDataGridView = new System.Windows.Forms.DataGridView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.lblErrors = new System.Windows.Forms.Label();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.mainAreaPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -59,6 +66,7 @@
             this.splitContainer1.SuspendLayout();
             this.leftPanelMainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -203,11 +211,15 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel3.BackColor = System.Drawing.Color.DimGray;
+            this.panel3.Controls.Add(this.statusStrip2);
+            this.panel3.Controls.Add(this.lblErrors);
+            this.panel3.Controls.Add(this.lblTotal);
+            this.panel3.Controls.Add(this.statusStrip1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 499);
+            this.panel3.Location = new System.Drawing.Point(0, 538);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1164, 62);
+            this.panel3.Size = new System.Drawing.Size(1164, 23);
             this.panel3.TabIndex = 2;
             // 
             // mainAreaPanel
@@ -217,12 +229,13 @@
             this.mainAreaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainAreaPanel.Location = new System.Drawing.Point(0, 83);
             this.mainAreaPanel.Name = "mainAreaPanel";
-            this.mainAreaPanel.Size = new System.Drawing.Size(1164, 416);
+            this.mainAreaPanel.Size = new System.Drawing.Size(1164, 455);
             this.mainAreaPanel.TabIndex = 3;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -234,8 +247,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.errorsDataGridView);
-            this.splitContainer1.Size = new System.Drawing.Size(1164, 416);
-            this.splitContainer1.SplitterDistance = 250;
+            this.splitContainer1.Size = new System.Drawing.Size(1164, 455);
+            this.splitContainer1.SplitterDistance = 271;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -252,7 +265,7 @@
             this.leftPanelMainLayout.RowCount = 2;
             this.leftPanelMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.468487F));
             this.leftPanelMainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.53151F));
-            this.leftPanelMainLayout.Size = new System.Drawing.Size(250, 416);
+            this.leftPanelMainLayout.Size = new System.Drawing.Size(269, 453);
             this.leftPanelMainLayout.TabIndex = 0;
             // 
             // label2
@@ -263,7 +276,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(244, 26);
+            this.label2.Size = new System.Drawing.Size(263, 29);
             this.label2.TabIndex = 0;
             this.label2.Text = "Errors";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -274,9 +287,9 @@
             this.treeErrors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeErrors.FullRowSelect = true;
             this.treeErrors.HideSelection = false;
-            this.treeErrors.Location = new System.Drawing.Point(3, 29);
+            this.treeErrors.Location = new System.Drawing.Point(3, 32);
             this.treeErrors.Name = "treeErrors";
-            this.treeErrors.Size = new System.Drawing.Size(244, 384);
+            this.treeErrors.Size = new System.Drawing.Size(263, 418);
             this.treeErrors.TabIndex = 1;
             this.treeErrors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -307,10 +320,67 @@
             this.errorsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.errorsDataGridView.EnableHeadersVisualStyles = false;
             this.errorsDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.errorsDataGridView.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
             this.errorsDataGridView.Name = "errorsDataGridView";
-            this.errorsDataGridView.Size = new System.Drawing.Size(910, 416);
+            this.errorsDataGridView.Size = new System.Drawing.Size(887, 453);
             this.errorsDataGridView.TabIndex = 0;
             this.errorsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
+            this.progressBar});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1164, 22);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblTotal.Location = new System.Drawing.Point(52, 4);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(10, 13);
+            this.lblTotal.TabIndex = 1;
+            this.lblTotal.Text = ".";
+            this.lblTotal.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // lblErrors
+            // 
+            this.lblErrors.AutoSize = true;
+            this.lblErrors.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblErrors.ForeColor = System.Drawing.Color.Black;
+            this.lblErrors.Location = new System.Drawing.Point(151, 4);
+            this.lblErrors.Name = "lblErrors";
+            this.lblErrors.Size = new System.Drawing.Size(10, 13);
+            this.lblErrors.TabIndex = 3;
+            this.lblErrors.Text = ".";
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Location = new System.Drawing.Point(0, -21);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(1164, 22);
+            this.statusStrip2.TabIndex = 4;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 16);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.ActiveLinkColor = System.Drawing.Color.WhiteSmoke;
+            this.lblStatus.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(1016, 17);
+            this.lblStatus.Spring = true;
             // 
             // MainForm
             // 
@@ -329,6 +399,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.mainAreaPanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -337,6 +409,8 @@
             this.leftPanelMainLayout.ResumeLayout(false);
             this.leftPanelMainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -360,5 +434,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TreeView treeErrors;
         private System.Windows.Forms.DataGridView errorsDataGridView;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Label lblErrors;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.ToolStripProgressBar progressBar;
     }
 }
