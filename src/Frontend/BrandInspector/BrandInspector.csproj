@@ -71,6 +71,8 @@
     <Compile Include="Constants\Constraints.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="DependencyInjection.cs" />
+    <Compile Include="Services\Interfaces\ITokenService.cs" />
+    <Compile Include="Services\TokenService .cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="Enums\ComplianceTypes.cs" />
     <Compile Include="Enums\ScanTypes.cs" />

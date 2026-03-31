@@ -25,6 +25,7 @@ namespace BrandInspector
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IBrandClientService, BrandClientService>();
             services.AddScoped<IScannerService, ScannerService>();
+            services.AddSingleton<ITokenService, TokenService>();
 
         }
 
