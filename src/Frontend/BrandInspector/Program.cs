@@ -23,8 +23,8 @@ namespace BrandInspector
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            var loginForm = ServiceProvider.GetRequiredService<MainForm>();
-            Application.Run(loginForm);
+            var form = ServiceProvider.GetRequiredService<MainForm>();
+            Application.Run(form);
         }
 
 

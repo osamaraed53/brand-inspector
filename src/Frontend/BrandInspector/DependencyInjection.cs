@@ -14,7 +14,6 @@ namespace BrandInspector
             var services = new ServiceCollection();
 
             RegisterServices(services);
-            RegisterPresenters(services);
             RegisterForms(services);
             RegisterPresenters(services);
 
@@ -32,13 +31,24 @@ namespace BrandInspector
         private static void RegisterPresenters(IServiceCollection services)
         {
             services.AddTransient<ILoginPresenter, LoginPresenter>();
-            services.AddTransient<IMainPresenter, MainPresenter>();
+
         }
 
         private static void RegisterForms(IServiceCollection services)
         {
-            services.AddTransient<LoginForm>();
-            services.AddTransient<MainForm>();
+            services.AddTransient<MainForm>(sp =>
+            {
+                var form = new MainForm();
+                var scannerService = sp.GetRequiredService<IScannerService>();
+                var brandClientService = sp.GetRequiredService<IBrandClientService>();
+                var presenter = new MainPresenter(form,scannerService, brandClientService); 
+                form.Presenter = presenter;              
+                return form;
+            });
+
+            services.AddTransient<IMainView>(sp => sp.GetRequiredService<MainForm>());
+
+
         }
     }
 }
