@@ -4,6 +4,8 @@ namespace BrandInspector.ViewModels
 {
     public class ErrorViewModel
     {
+        [Browsable(false)]
+        public int RowIndex { get; set; }
         [DisplayName("Slide #")]
         public int SlideNumber { get; set; }
         [DisplayName("Shape Type")]
