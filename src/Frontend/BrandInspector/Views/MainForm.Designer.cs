@@ -250,7 +250,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(1164, 455);
             this.splitContainer1.SplitterDistance = 271;
             this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            //this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // leftPanelMainLayout
             // 
@@ -291,7 +291,7 @@
             this.treeErrors.Name = "treeErrors";
             this.treeErrors.Size = new System.Drawing.Size(263, 418);
             this.treeErrors.TabIndex = 1;
-            this.treeErrors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeErrors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
             // 
             // errorsDataGridView
             // 
@@ -324,7 +324,7 @@
             this.errorsDataGridView.Name = "errorsDataGridView";
             this.errorsDataGridView.Size = new System.Drawing.Size(887, 453);
             this.errorsDataGridView.TabIndex = 0;
-            this.errorsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            //this.errorsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // statusStrip1
             // 
@@ -347,7 +347,7 @@
             this.lblTotal.Size = new System.Drawing.Size(10, 13);
             this.lblTotal.TabIndex = 1;
             this.lblTotal.Text = ".";
-            this.lblTotal.Click += new System.EventHandler(this.label3_Click);
+            //this.lblTotal.Click += new System.EventHandler(this.label3_Click);
             // 
             // lblErrors
             // 

@@ -15,12 +15,10 @@ namespace BrandInspector.Views
 {
     public partial class MainForm : Form , IMainView
     {
+        private readonly BindingSource _bindingSource = new BindingSource();
+
         public string SelectedFilePath {get ; set;}
 
-        public event EventHandler BrowseClicked;
-        public event EventHandler ScanFontsClicked;
-        public event EventHandler ScanColorsClicked;
-        public event EventHandler ScanSizesClicked;
         public MainForm()
         {
             InitializeComponent();
@@ -30,17 +28,14 @@ namespace BrandInspector.Views
 
             errorsDataGridView.DataSource = _bindingSource;
             _bindingSource.DataSource = new List<ErrorViewModel>();
+            StopLoading();
 
-        private void MainForm_Load(object sender, EventArgs e) { }
+        }
       
         private void UpdateStatusBar(int total, int errors)
         {
             lblTotal.Text = $"Total: {total}";
             lblErrors.Text = $"Errors: {errors}";
-        }
-        public void DisplayResults(IList<TextRunInfo> results)
-        {
-            throw new NotImplementedException();
         }
 
         private void BrowseBtn_Click(object sender, EventArgs e)
@@ -63,11 +58,11 @@ namespace BrandInspector.Views
         {
             MessageBox.Show(message);
         }
-        private void cancel_Click(object sender, EventArgs e)
+
         {
             Presenter.CancelProcess();
         }
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+
         {        
             if (e.Node.Tag is ErrorViewModel error)
             {
@@ -103,7 +98,7 @@ namespace BrandInspector.Views
                         $"Slide {error.SlideNumber}: {error.Compliance}"
                     );
 
-                    child.Tag = error; // 🔥 important
+                    child.Tag = error; 
                     parent.Nodes.Add(child);
                 }
 
@@ -113,15 +108,6 @@ namespace BrandInspector.Views
             treeErrors.ExpandAll();
         }
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
         private void StartLoading()
         {
             progressBar.Visible = true;
