@@ -4,17 +4,14 @@ using BrandInspector.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BrandInspector.Views
 {
     public partial class MainForm : Form , IMainView
     {
+        public IMainPresenter Presenter { get; set; }
         private readonly BindingSource _bindingSource = new BindingSource();
 
         public string SelectedFilePath {get ; set;}
@@ -31,7 +28,7 @@ namespace BrandInspector.Views
             StopLoading();
 
         }
-      
+
         private void UpdateStatusBar(int total, int errors)
         {
             lblTotal.Text = $"Total: {total}";
@@ -59,10 +56,78 @@ namespace BrandInspector.Views
             MessageBox.Show(message);
         }
 
+        private async void FontsBtn_Click(object sender, EventArgs e)
+        {
+            StartLoading();
+
+            try
+            {
+                var result = await Presenter.ScanFonts();
+
+                var total = result.Total;
+                var errors = result.Errors.Count;
+                _bindingSource.DataSource = errors;
+
+                UpdateStatusBar(total, errors);
+                LoadErrors(result.Errors);
+            }
+            finally
+            {
+                StopLoading();
+            }
+        }
+        private async void SizeBtn_Click(object sender, EventArgs e)
+        {
+            StartLoading();
+
+            try
+            {
+                var result = await Presenter.ScanSize();
+
+                var total = result.Total;
+                var errors = result.Errors.Count;
+                _bindingSource.DataSource = errors;
+
+                UpdateStatusBar(total, errors);
+                LoadErrors(result.Errors);
+            }
+            finally
+            {
+                StopLoading();
+            }
+        }
+
+        private async void ColorsBtn_Click(object sender, EventArgs e)
+        {
+            StartLoading();
+
+            try
+            {
+                var result = await Presenter.ScanColors();
+
+                var total = result.Total;
+                var errors = result.Errors.Count;
+                _bindingSource.DataSource = errors;
+
+                UpdateStatusBar(total, errors);
+                LoadErrors(result.Errors);
+            }
+            finally
+            {
+                StopLoading();
+            }
+
+        }
+
+
+        private void Cancel_Click(object sender, EventArgs e)
         {
             Presenter.CancelProcess();
         }
 
+
+
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {        
             if (e.Node.Tag is ErrorViewModel error)
             {

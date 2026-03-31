@@ -6,6 +6,7 @@ namespace BrandInspector.Views
 {
     public interface IMainView 
     {
-
+        string SelectedFilePath { get; set; }
+        void ShowMessage(string message);
     }
 }
