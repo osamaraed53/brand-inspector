@@ -24,6 +24,7 @@ namespace BrandInspector
         {
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IBrandClientService, BrandClientService>();
+            services.AddSingleton<AppContext>();
             services.AddScoped<IScannerService, ScannerService>();
             services.AddSingleton<ITokenService, TokenService>();
 
@@ -32,18 +33,31 @@ namespace BrandInspector
         private static void RegisterPresenters(IServiceCollection services)
         {
             services.AddTransient<ILoginPresenter, LoginPresenter>();
+            services.AddTransient<IMainPresenter, MainPresenter>();
+
 
         }
 
         private static void RegisterForms(IServiceCollection services)
         {
-            services.AddTransient<MainForm>(sp =>
+            services.AddTransient(sp =>
             {
                 var form = new MainForm();
                 var scannerService = sp.GetRequiredService<IScannerService>();
                 var brandClientService = sp.GetRequiredService<IBrandClientService>();
-                var presenter = new MainPresenter(form,scannerService, brandClientService); 
+                var appContext = sp.GetRequiredService<AppContext>();
+                var presenter = new MainPresenter(form, scannerService, brandClientService, appContext);
                 form.Presenter = presenter;              
+                return form;
+            });
+
+            IServiceCollection serviceCollection = services.AddTransient(sp =>
+            {
+                var form = new LoginForm();
+                var apiClient = sp.GetRequiredService<ApiClient>();
+                var appContext = sp.GetRequiredService<AppContext>();
+                var loginPresenter = new LoginPresenter(apiClient, form, appContext);
+                form.Presenter = loginPresenter;
                 return form;
             });
 
