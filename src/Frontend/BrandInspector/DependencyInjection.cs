@@ -4,6 +4,8 @@ using BrandInspector.Services;
 using BrandInspector.Services.Interfaces;
 using BrandInspector.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
 
 namespace BrandInspector
 {
@@ -22,11 +24,19 @@ namespace BrandInspector
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IBrandClientService, BrandClientService>();
-            services.AddSingleton<AppContext>();
-            services.AddScoped<IScannerService, ScannerService>();
             services.AddSingleton<ITokenService, TokenService>();
+            services.AddSingleton<HttpClient>();
+
+            services.AddSingleton<AppContext>();
+
+            //TODO : find better way to save uri
+            services.AddSingleton(new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:7238")
+            });
+
+            services.AddScoped<IBrandClientService, BrandClientService>();
+            services.AddScoped<IScannerService, ScannerService>();
 
         }
 
@@ -34,8 +44,6 @@ namespace BrandInspector
         {
             services.AddTransient<ILoginPresenter, LoginPresenter>();
             services.AddTransient<IMainPresenter, MainPresenter>();
-
-
         }
 
         private static void RegisterForms(IServiceCollection services)
@@ -47,7 +55,7 @@ namespace BrandInspector
                 var brandClientService = sp.GetRequiredService<IBrandClientService>();
                 var appContext = sp.GetRequiredService<AppContext>();
                 var presenter = new MainPresenter(form, scannerService, brandClientService, appContext);
-                form.Presenter = presenter;              
+                form.Presenter = presenter;
                 return form;
             });
 
@@ -60,10 +68,6 @@ namespace BrandInspector
                 form.Presenter = loginPresenter;
                 return form;
             });
-
-            services.AddTransient<IMainView>(sp => sp.GetRequiredService<MainForm>());
-
-
         }
     }
 }
