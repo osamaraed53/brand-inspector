@@ -7,6 +7,6 @@ namespace BrandInspector.Services.Interfaces
     public interface IScannerService
     {
         List<TextRunInfo> ScanPresentation(string filePath, CancellationToken token);
-
+        bool IsOpenPPTXValid(string filePath);
     }
 }

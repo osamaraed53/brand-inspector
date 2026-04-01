@@ -4,7 +4,9 @@ using BrandInspector.Services.Interfaces;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Validation;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Drawing = DocumentFormat.OpenXml.Drawing;
@@ -12,10 +14,27 @@ using Presentation = DocumentFormat.OpenXml.Presentation;
 
 namespace BrandInspector.Services
 {
-    public class ScannerService  : IScannerService
+    public class ScannerService : IScannerService
     {
 
-        public  List<TextRunInfo> ScanPresentation(string filePath, CancellationToken token)
+        public bool IsOpenPPTXValid(string filePath)
+        {
+            try
+            {
+                using (var doc = PresentationDocument.Open(filePath, false))
+    {
+                    var validator = new OpenXmlValidator();
+                    var errors = validator.Validate(doc);
+
+                    return !errors.Any();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public List<TextRunInfo> ScanPresentation(string filePath, CancellationToken token)
         {
             var textRunInfos = new List<TextRunInfo>();
 

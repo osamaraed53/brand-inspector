@@ -33,9 +33,10 @@ namespace BrandInspector.Presenters
         public void OnFileSelected(string path)
         {
             if (string.IsNullOrWhiteSpace(path) ||
-                Path.GetExtension(path).ToLower() != ".pptx")
+                System.IO.Path.GetExtension(path).ToLower() != ".pptx" || !_scanner.IsOpenXmlValid(path))
             {
-                _view.ShowMessage(ErrorMessages.InvalidFile);
+                _mainView.SelectedFilePath = string.Empty;
+                _mainView.ShowMessage(ErrorMessages.InvalidFile);
                 return;
             }
             // TODO : check magic bytes 
