@@ -8,14 +8,12 @@ using DocumentFormat.OpenXml.Validation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Drawing = DocumentFormat.OpenXml.Drawing;
 using Presentation = DocumentFormat.OpenXml.Presentation;
 
 namespace BrandInspector.Services
 {
     public class ScannerService : IScannerService
     {
-
         public bool IsOpenPPTXValid(string filePath)
         {
             try
@@ -226,8 +224,7 @@ namespace BrandInspector.Services
             if (masterPart?.SlideMaster?.TextStyles?.BodyStyle != null)
             {
                 var bodyStyle = masterPart.SlideMaster.TextStyles.BodyStyle;
-                var level1Para = bodyStyle.Descendants<Drawing.Level1ParagraphProperties>().FirstOrDefault();
-                var defaultRun = level1Para?.Descendants<Drawing.DefaultRunProperties>().FirstOrDefault();
+                var defaultRun = bodyStyle?.Descendants<DefaultRunProperties>().FirstOrDefault();
 
                 if (defaultRun != null)
                 {

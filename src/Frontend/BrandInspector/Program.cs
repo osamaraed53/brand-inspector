@@ -11,6 +11,9 @@ namespace BrandInspector
         static void Main()
         {
 
+
+       
+
             var serviceProvider = DependencyInjection.Configure();
 
 
