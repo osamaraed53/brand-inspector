@@ -1,12 +1,11 @@
 ﻿using BrandInspector.Constants;
 using BrandInspector.Models;
-using BrandInspector.Models.Enums;
 using BrandInspector.Presenters.Interfaces;
 using BrandInspector.Services.Interfaces;
+using BrandInspector.ViewModels;
 using BrandInspector.Views;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,8 +15,7 @@ namespace BrandInspector.Presenters
     public class MainPresenter : IMainPresenter
     {
         private CancellationTokenSource _currentCancellationToken;
-
-        public readonly IMainView _view;
+        public readonly MainForm _mainView;
         public readonly IScannerService _scanner;
         public readonly IBrandClientService _brandClient;
         private readonly AppContext _appContext;
@@ -25,38 +23,47 @@ namespace BrandInspector.Presenters
 
         public MainPresenter(MainForm mainView, IScannerService scannerService, IBrandClientService brandClientService, AppContext appContext)
         {
+
             _brandClient = brandClientService;
             _scanner = scannerService;
-            _view = mainView;
+            _mainView = mainView;
             _appContext = appContext;
         }
         public void OnFileSelected(string path)
         {
             if (string.IsNullOrWhiteSpace(path) ||
-                System.IO.Path.GetExtension(path).ToLower() != ".pptx" || !_scanner.IsOpenXmlValid(path))
+                System.IO.Path.GetExtension(path).ToLower() != ".pptx" || !_scanner.IsOpenPPTXValid(path))
             {
                 _mainView.SelectedFilePath = string.Empty;
                 _mainView.ShowMessage(ErrorMessages.InvalidFile);
                 return;
             }
-            // TODO : check magic bytes 
         }
 
-        public async Task<IList<ComplianceError>> ScanFonts()
+        public async Task<ResultViewModel> ScanFonts()
         {
             _currentCancellationToken = new CancellationTokenSource();
             var token = _currentCancellationToken.Token;
 
             try
             {
-                string filePath = _view.SelectedFilePath;
-                var errors = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
+                string filePath = _mainView.SelectedFilePath;
+                var data = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
 
-                return ValidateFontsCompliance(errors);
+                return new ResultViewModel()
+                {
+                    Total = data.Count,
+                    Errors = await Task.Run(() => ValidateFontsCompliance(data))
+                };
             }
             catch (OperationCanceledException)
             {
-                return new List<ComplianceError>();
+                return new ResultViewModel() { Total = 0, Errors = new List<ErrorViewModel>() };
+            }
+            catch (UnauthorizedAccessException)
+            {
+                _appContext.ShowForm<LoginForm>(_mainView);
+                return null; 
             }
             finally
             {
@@ -64,21 +71,30 @@ namespace BrandInspector.Presenters
             }
         }
 
-        public async Task<IList<ComplianceError>> ScanColors()
+        public async Task<ResultViewModel> ScanColors()
         {
             _currentCancellationToken = new CancellationTokenSource();
             var token = _currentCancellationToken.Token;
 
             try
             {
-                string filePath = _view.SelectedFilePath;
-                var errors = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
+                string filePath = _mainView.SelectedFilePath;
+                var data = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
 
-                return ValidateColorCompliance(errors);
+                return new ResultViewModel()
+                {
+                    Total = data.Count,
+                    Errors = await Task.Run(() =>  ValidateColorCompliance(data))
+                };
             }
             catch (OperationCanceledException)
             {
-                return new List<ComplianceError>();
+                return new ResultViewModel() { Total = 0, Errors = new List<ErrorViewModel>() };
+            }
+            catch (UnauthorizedAccessException)
+            {
+                _appContext.ShowForm<LoginForm>(_mainView);
+                return null;
             }
             finally
             {
@@ -92,23 +108,33 @@ namespace BrandInspector.Presenters
             _currentCancellationToken?.Cancel();
         }
 
-        
 
-        public async Task<IList<ComplianceError>> ScanSize()
+
+        public async Task<ResultViewModel> ScanSize()
         {
             _currentCancellationToken = new CancellationTokenSource();
             var token = _currentCancellationToken.Token;
 
             try
             {
-                string filePath = _view.SelectedFilePath;
-                var errors = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
+                string filePath = _mainView.SelectedFilePath;
+                var data = await Task.Run(() => _scanner.ScanPresentation(filePath, token));
 
-                return ValidateFontSizeCompliance(errors);
+                return new ResultViewModel()
+                {
+                    Total = data.Count,
+                    Errors = await Task.Run(() => ValidateFontSizeCompliance(data))
+                };
             }
+
             catch (OperationCanceledException)
             {
-                return new List<ComplianceError>();
+                return new ResultViewModel() { Total = 0, Errors = new List<ErrorViewModel>() };
+            }
+            catch (UnauthorizedAccessException)
+            {
+                _appContext.ShowForm<LoginForm>(_mainView);
+                return null;
             }
             finally
             {
@@ -118,76 +144,94 @@ namespace BrandInspector.Presenters
         }
 
         //TODO : separate this logic in other service if i can based on principle   
-        private List<ComplianceError> ValidateFontsCompliance(List<TextRunInfo> textRunInfos)
+        private async Task<List<ErrorViewModel>> ValidateFontsCompliance(List<TextRunInfo> textRunInfos)
         {
-            var errors = new List<ComplianceError>();
-            var fonts = _brandClient.GetBrandFonts();
+            var fonts = await _brandClient.GetBrandFonts();
 
+            var fontSet = new HashSet<string>(fonts, StringComparer.OrdinalIgnoreCase);
+            string fontsExpected = string.Join(", ", fontSet);
 
-            errors = textRunInfos.Where(obj => !fonts.Contains(obj.FontFamily, StringComparer.OrdinalIgnoreCase)).Select(obj => new ComplianceError
+            var errors = new List<ErrorViewModel>();
+            int counter = 1;
+
+            foreach (var obj in textRunInfos)
             {
-                SlideNumber = obj.SlideNumber,
-                ShapeType = obj.ShapeType,
-                ShapeId = obj.ShapeId,
-                IssueType = IssueTypes.Font,
-                SampleText = obj.SampleText,
-                Actual = obj.FontFamily,
-                Expected = string.Join(", ", fonts),
-                Severity = "warn"
-            }).ToList();
-
-
+                if (!fontSet.Contains(obj.FontFamily))
+                {
+                    errors.Add(new ErrorViewModel
+                    {
+                        RowIndex = counter++,
+                        SlideNumber = obj.SlideNumber,
+                        ShapeType = obj.ShapeType,
+                        SampleText = obj.SampleText,
+                        FontFamily = obj.FontFamily,
+                        FontSizePt = obj.FontSizePt,
+                        ColorHex = obj.ColorHex,
+                        Compliance = $"Fail expected: {fontsExpected}."
+                    });
+                }
+            }
 
             return errors;
         }
-
-        private List<ComplianceError> ValidateFontSizeCompliance(List<TextRunInfo> textRunInfos)
+        private async Task<List<ErrorViewModel>> ValidateFontSizeCompliance(List<TextRunInfo> textRunInfos)
         {
-            var errors = new List<ComplianceError>();
-            var sizes = _brandClient.GetBrandSizes(); ;
+            var errors = new List<ErrorViewModel>();
 
-            errors = textRunInfos.Where(obj => !sizes.Any(size => Math.Abs(size - obj.FontSizePt) <= Constraints.SizeTolerance)).Select(obj => new ComplianceError
+            var sizes = await _brandClient.GetBrandSizes(); ;
+            string sizesExpected = string.Join(", ", sizes);
+            int counter = 1;
+
+            foreach (var obj in textRunInfos)
             {
-                SlideNumber = obj.SlideNumber,
-                ShapeType = obj.ShapeType,
-                ShapeId = obj.ShapeId,
-                IssueType = IssueTypes.Size,
-                SampleText = obj.SampleText,
-                Actual = obj.FontSizePt.ToString(),
-                Expected = string.Join(", ", sizes.Select(s => s.ToString())),
-                Severity = "warn"
-            }).ToList();
+                if (!sizes.Any(size => Math.Abs(size - obj.FontSizePt) <= Constraints.SizeTolerance))
+                {
+                    errors.Add(new ErrorViewModel()
+                    {
+                        RowIndex = counter++,
+                        SlideNumber = obj.SlideNumber,
+                        ShapeType = obj.ShapeType,
+                        SampleText = obj.SampleText,
+                        FontFamily = obj.FontFamily,
+                        FontSizePt = obj.FontSizePt,
+                        ColorHex = obj.ColorHex,
+                        Compliance = $"Fail expected: {sizesExpected}."
+                    });
 
-            return errors;
-        }
-
-
-        private List<ComplianceError> ValidateColorCompliance(List<TextRunInfo> textRunInfos)
-        {
-            var errors = new List<ComplianceError>();
-            var colors = _brandClient.GetBrandColors();
-           
-
-            errors = textRunInfos.Where(obj => !colors.Contains(obj.ColorHex, StringComparer.OrdinalIgnoreCase)).Select(obj => new ComplianceError
-            {
-                SlideNumber = obj.SlideNumber,
-                ShapeType = obj.ShapeType,
-                ShapeId = obj.ShapeId,
-                IssueType = IssueTypes.Color,
-                SampleText = obj.SampleText,
-                Actual = obj.ColorHex,
-                Expected = string.Join(", ", colors),
-                Severity = "warn"
-            }).ToList();
-
+                }
+            }
             return errors;
         }
 
 
+        private async Task<List<ErrorViewModel>> ValidateColorCompliance(List<TextRunInfo> textRunInfos)
+        {
+            var errors = new List<ErrorViewModel>();
+            var colors = await _brandClient.GetBrandColors();
+            var colorsSet = new HashSet<string>(colors, StringComparer.OrdinalIgnoreCase);
 
-
-
+            string colorExpected = string.Join(", ", colors);
+            int counter = 1;
+            foreach (var obj in textRunInfos)
+            {
+                if (!colorsSet.Contains(obj.ColorHex, StringComparer.OrdinalIgnoreCase))
+                {
+                    errors.Add(new ErrorViewModel()
+                    {
+                        RowIndex = counter++,
+                        SlideNumber = obj.SlideNumber,
+                        ShapeType = obj.ShapeType,
+                        SampleText = obj.SampleText,
+                        FontFamily = obj.FontFamily,
+                        FontSizePt = obj.FontSizePt,
+                        ColorHex = obj.ColorHex,
+                        Compliance = $"Fail expected: {colorExpected}."
+                    });
+                }
+            }
+            return errors;
+        }
 
     }
 }
-//var x = 
+

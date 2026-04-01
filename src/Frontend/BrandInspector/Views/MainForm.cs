@@ -1,4 +1,5 @@
-﻿using BrandInspector.Models;
+﻿using BrandInspector.Constants;
+using BrandInspector.Models;
 using BrandInspector.Presenters.Interfaces;
 using BrandInspector.ViewModels;
 using System;
@@ -9,19 +10,20 @@ using System.Windows.Forms;
 
 namespace BrandInspector.Views
 {
-    public partial class MainForm : Form , IMainView
+    public partial class MainForm : Form, IMainView
     {
         public IMainPresenter Presenter { get; set; }
         private readonly BindingSource _bindingSource = new BindingSource();
 
-        public string SelectedFilePath {get ; set;}
+        public string SelectedFilePath { get; set; }
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, EventArgs e) {
+        private void MainForm_Load(object sender, EventArgs e)
+        {
 
             errorsDataGridView.DataSource = _bindingSource;
             _bindingSource.DataSource = new List<ErrorViewModel>();
@@ -50,7 +52,6 @@ namespace BrandInspector.Views
                 }
             }
         }
-
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
@@ -58,64 +59,78 @@ namespace BrandInspector.Views
 
         private async void FontsBtn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(filePathTxt.Text))
+            {
+                MessageBox.Show(ErrorMessages.UnSelectedFile);
+                return;
+            }
+
             StartLoading();
 
-            try
-            {
-                var result = await Presenter.ScanFonts();
+            var result = await Presenter.ScanFonts();
 
-                var total = result.Total;
-                var errors = result.Errors.Count;
-                _bindingSource.DataSource = errors;
+            if (result == null)
+                return;
 
-                UpdateStatusBar(total, errors);
-                LoadErrors(result.Errors);
-            }
-            finally
-            {
-                StopLoading();
-            }
+            var total = result.Total;
+            var errors = result.Errors.Count;
+            _bindingSource.DataSource = result.Errors;
+
+            UpdateStatusBar(total, errors);
+            LoadErrors(result.Errors);
+
+            StopLoading();
+
         }
         private async void SizeBtn_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(filePathTxt.Text))
+            {
+                MessageBox.Show(ErrorMessages.UnSelectedFile);
+                return;
+            }
+
+
             StartLoading();
 
-            try
-            {
-                var result = await Presenter.ScanSize();
 
-                var total = result.Total;
-                var errors = result.Errors.Count;
-                _bindingSource.DataSource = errors;
+            var result = await Presenter.ScanSize();
 
-                UpdateStatusBar(total, errors);
-                LoadErrors(result.Errors);
-            }
-            finally
-            {
-                StopLoading();
-            }
+
+            if (result == null)
+                return;
+
+            var total = result.Total;
+            var errors = result.Errors.Count;
+            _bindingSource.DataSource = result.Errors;
+
+            UpdateStatusBar(total, errors);
+            LoadErrors(result.Errors);
+
+            StopLoading();
+
         }
 
         private async void ColorsBtn_Click(object sender, EventArgs e)
         {
             StartLoading();
 
-            try
-            {
-                var result = await Presenter.ScanColors();
+            var result = await Presenter.ScanColors();
 
-                var total = result.Total;
-                var errors = result.Errors.Count;
-                _bindingSource.DataSource = errors;
+            if (result == null)
+                return;
 
-                UpdateStatusBar(total, errors);
-                LoadErrors(result.Errors);
-            }
-            finally
-            {
-                StopLoading();
-            }
+
+            var total = result.Total;
+            var errors = result.Errors.Count;
+            _bindingSource.DataSource = result.Errors;
+
+            UpdateStatusBar(total, errors);
+            LoadErrors(result.Errors);
+
+            StopLoading();
+
 
         }
 
@@ -128,10 +143,10 @@ namespace BrandInspector.Views
 
 
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {        
+        {
             if (e.Node.Tag is ErrorViewModel error)
             {
-                HighlightRow(error.RowIndex);
+                HighlightRow(error.RowIndex - 1);
             }
         }
 
@@ -155,15 +170,16 @@ namespace BrandInspector.Views
 
             foreach (var group in grouped)
             {
-                TreeNode parent = new TreeNode("Slide "+group.Key);
+                TreeNode parent = new TreeNode("Slide " + group.Key);
 
                 foreach (var error in group)
                 {
                     TreeNode child = new TreeNode(
                         $"Slide {error.SlideNumber}: {error.Compliance}"
-                    );
-
-                    child.Tag = error; 
+                    )
+                    {
+                        Tag = error
+                    };
                     parent.Nodes.Add(child);
                 }
 

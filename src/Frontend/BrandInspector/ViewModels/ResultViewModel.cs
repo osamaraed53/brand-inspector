@@ -6,7 +6,7 @@ namespace BrandInspector.ViewModels
     {
         public int Total { get; set; }
 
-        public List<ErrorViewModel> Errors { get; set; }
+        public List<ErrorViewModel> Errors { get; set; } = new List<ErrorViewModel>();
 
     }
 }

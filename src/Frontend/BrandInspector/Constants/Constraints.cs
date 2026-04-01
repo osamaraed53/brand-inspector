@@ -2,7 +2,7 @@
 {
     public  static class Constraints
     {
-        public const double SizeTolerance = 5.0;
+        public const double SizeTolerance = 0.5;
         public const int LenOfSampleText = 30;
     }
 }

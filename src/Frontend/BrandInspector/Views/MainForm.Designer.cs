@@ -42,23 +42,24 @@
             this.colorsBtn = new System.Windows.Forms.Button();
             this.sizeBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.lblErrors = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.mainAreaPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.leftPanelMainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.treeErrors = new System.Windows.Forms.TreeView();
             this.errorsDataGridView = new System.Windows.Forms.DataGridView();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblErrors = new System.Windows.Forms.Label();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.mainAreaPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -66,7 +67,6 @@
             this.splitContainer1.SuspendLayout();
             this.leftPanelMainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -222,6 +222,61 @@
             this.panel3.Size = new System.Drawing.Size(1164, 23);
             this.panel3.TabIndex = 2;
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Location = new System.Drawing.Point(0, -21);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(1164, 22);
+            this.statusStrip2.TabIndex = 4;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // lblErrors
+            // 
+            this.lblErrors.AutoSize = true;
+            this.lblErrors.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblErrors.ForeColor = System.Drawing.Color.Black;
+            this.lblErrors.Location = new System.Drawing.Point(151, 4);
+            this.lblErrors.Name = "lblErrors";
+            this.lblErrors.Size = new System.Drawing.Size(10, 13);
+            this.lblErrors.TabIndex = 3;
+            this.lblErrors.Text = ".";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblTotal.Location = new System.Drawing.Point(52, 4);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(10, 13);
+            this.lblTotal.TabIndex = 1;
+            this.lblTotal.Text = ".";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
+            this.progressBar});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1164, 22);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.ActiveLinkColor = System.Drawing.Color.WhiteSmoke;
+            this.lblStatus.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(1047, 17);
+            this.lblStatus.Spring = true;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 16);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            // 
             // mainAreaPanel
             // 
             this.mainAreaPanel.BackColor = System.Drawing.SystemColors.Highlight;
@@ -250,7 +305,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1164, 455);
             this.splitContainer1.SplitterDistance = 271;
             this.splitContainer1.TabIndex = 0;
-            //this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // leftPanelMainLayout
             // 
@@ -324,63 +378,6 @@
             this.errorsDataGridView.Name = "errorsDataGridView";
             this.errorsDataGridView.Size = new System.Drawing.Size(887, 453);
             this.errorsDataGridView.TabIndex = 0;
-            //this.errorsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus,
-            this.progressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1164, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTotal.ForeColor = System.Drawing.Color.Black;
-            this.lblTotal.Location = new System.Drawing.Point(52, 4);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(10, 13);
-            this.lblTotal.TabIndex = 1;
-            this.lblTotal.Text = ".";
-            //this.lblTotal.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // lblErrors
-            // 
-            this.lblErrors.AutoSize = true;
-            this.lblErrors.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblErrors.ForeColor = System.Drawing.Color.Black;
-            this.lblErrors.Location = new System.Drawing.Point(151, 4);
-            this.lblErrors.Name = "lblErrors";
-            this.lblErrors.Size = new System.Drawing.Size(10, 13);
-            this.lblErrors.TabIndex = 3;
-            this.lblErrors.Text = ".";
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Location = new System.Drawing.Point(0, -21);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1164, 22);
-            this.statusStrip2.TabIndex = 4;
-            this.statusStrip2.Text = "statusStrip2";
-            // 
-            // progressBar
-            // 
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(100, 16);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.ActiveLinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblStatus.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(1016, 17);
-            this.lblStatus.Spring = true;
             // 
             // MainForm
             // 
@@ -401,6 +398,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.mainAreaPanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -409,8 +408,6 @@
             this.leftPanelMainLayout.ResumeLayout(false);
             this.leftPanelMainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorsDataGridView)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }

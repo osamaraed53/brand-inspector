@@ -37,7 +37,8 @@ namespace BrandInspector
 
             services.AddScoped<IBrandClientService, BrandClientService>();
             services.AddScoped<IScannerService, ScannerService>();
-
+            services.AddSingleton<ApiClient>();
+            
         }
 
         private static void RegisterPresenters(IServiceCollection services)
