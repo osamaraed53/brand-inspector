@@ -20,12 +20,15 @@ namespace BrandInspector.Presenters
         public readonly IMainView _view;
         public readonly IScannerService _scanner;
         public readonly IBrandClientService _brandClient;
+        private readonly AppContext _appContext;
 
-        public MainPresenter(IMainView mainView, IScannerService scannerService, IBrandClientService brandClientService)
+
+        public MainPresenter(MainForm mainView, IScannerService scannerService, IBrandClientService brandClientService, AppContext appContext)
         {
             _brandClient = brandClientService;
             _scanner = scannerService;
             _view = mainView;
+            _appContext = appContext;
         }
         public void OnFileSelected(string path)
         {

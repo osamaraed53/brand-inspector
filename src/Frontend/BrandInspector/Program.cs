@@ -5,26 +5,27 @@ using BrandInspector.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
-using BrandInspector.Presenters.Interfaces;
 
 namespace BrandInspector
 {
     internal static class Program
     {
-        public static ServiceProvider ServiceProvider { get; private set; }
-
         [STAThread]
         static void Main()
         {
 
-            ServiceProvider = DependencyInjection.Configure();
+            var serviceProvider = DependencyInjection.Configure();
 
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            var form = ServiceProvider.GetRequiredService<MainForm>();
-            Application.Run(form);
+            var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+            var appContext = serviceProvider.GetRequiredService<AppContext>();
+
+            appContext.Show(loginForm);
+            Application.Run(appContext);
+            
         }
 
 
