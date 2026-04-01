@@ -5,6 +5,7 @@ using BrandInspector.Services.Interfaces;
 using BrandInspector.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Configuration;
 using System.Net.Http;
 
 namespace BrandInspector
@@ -24,15 +25,21 @@ namespace BrandInspector
 
         private static void RegisterServices(IServiceCollection services)
         {
+
+
+
             services.AddSingleton<ITokenService, TokenService>();
             services.AddSingleton<HttpClient>();
 
             services.AddSingleton<AppContext>();
 
+            string apiBaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"];
+
+
             //TODO : find better way to save uri
             services.AddSingleton(new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:7238")
+                BaseAddress = new Uri(apiBaseUrl)
             });
 
             services.AddScoped<IBrandClientService, BrandClientService>();
