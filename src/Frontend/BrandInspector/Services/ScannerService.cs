@@ -6,7 +6,6 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Validation;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using Drawing = DocumentFormat.OpenXml.Drawing;
@@ -22,7 +21,7 @@ namespace BrandInspector.Services
             try
             {
                 using (var doc = PresentationDocument.Open(filePath, false))
-    {
+                {
                     var validator = new OpenXmlValidator();
                     var errors = validator.Validate(doc);
 
@@ -43,20 +42,24 @@ namespace BrandInspector.Services
                 var presentationPart = presentationDocument.PresentationPart;
 
                 var slides = presentationPart.SlideParts;
-                
+
+
+                var slidesMaster = presentationPart.SlideMasterParts;
+
+                var themePart = presentationPart.ThemePart;
+                var defaultColor = GetDefaultColorFromTheme(themePart);
+                var defaultFont = GetDefaultFontFromTheme(themePart);
+
                 foreach (var slidePart in slides)
                 {
-
-
-                    //var x = slidePart.Slide.OuterXml;
 
                     int slideNumber = presentationPart.SlideParts.ToList().IndexOf(slidePart) + 1;
                     var slide = slidePart.Slide;
 
-                    
+                    var masterDefaults = GetMasterDefaults(slidePart, defaultColor, defaultFont);
 
-                    ProcessTextShapes(slide, slideNumber, textRunInfos,token);
-                    ProcessTableTextRuns(slide, slideNumber, textRunInfos, token);
+                    ProcessTextShapes(slide, slideNumber, textRunInfos, masterDefaults, token );
+                    ProcessTableTextRuns(slide, slideNumber, textRunInfos, masterDefaults, token);
                     token.ThrowIfCancellationRequested();
 
                 }
@@ -65,11 +68,12 @@ namespace BrandInspector.Services
             return textRunInfos;
         }
 
-        private void ProcessTextShapes(Slide slide, int slideNumber, List<TextRunInfo> textRunInfos, CancellationToken token)
+
+        private void ProcessTextShapes(Slide slide, int slideNumber, List<TextRunInfo> textRunInfos, (string fontFamily, double fontSize, string colorHex) masterDefaults, CancellationToken token)
         {
             var textElements = slide.Descendants<Presentation.Shape>().Where(s => s.TextBody != null).ToList();
 
-            
+
 
             foreach (var shape in textElements)
             {
@@ -84,9 +88,12 @@ namespace BrandInspector.Services
                     string sampleText = textRun.InnerText.Length > Constraints.LenOfSampleText ? textRun.InnerText.Substring(0, Constraints.LenOfSampleText) : textRun.InnerText;
                     var runProperties = textRun.RunProperties;
 
-                    string fontFamily = GetFontFamily(runProperties);
+                    string fontFamily = GetFontFamily(runProperties) ?? masterDefaults.fontFamily;
                     double fontSize = GetFontSize(runProperties);
-                    string colorHex = GetColorHex(runProperties);
+                    string colorHex = GetColorHex(runProperties)?? masterDefaults.colorHex;
+
+                    if(fontSize == 0)
+                        fontSize = masterDefaults.fontSize;
 
                     var textRunInfo = new TextRunInfo
                     {
@@ -102,7 +109,7 @@ namespace BrandInspector.Services
                 }
             }
         }
-        private void ProcessTableTextRuns(Slide slide,int slideNumber,List<TextRunInfo> textRunInfos,CancellationToken token)
+        private void ProcessTableTextRuns(Slide slide, int slideNumber, List<TextRunInfo> textRunInfos, (string fontFamily, double fontSize, string colorHex) masterDefaults, CancellationToken token)
         {
             foreach (var table in slide.Descendants<Table>())
             {
@@ -124,15 +131,19 @@ namespace BrandInspector.Services
 
                             var runProperties = run.RunProperties;
 
-                            string fontFamily = GetFontFamily(runProperties);
+                            string fontFamily = GetFontFamily(runProperties) ?? masterDefaults.fontFamily;
                             double fontSize = GetFontSize(runProperties);
-                            string colorHex = GetColorHex(runProperties);
+                            string colorHex = GetColorHex(runProperties) ?? masterDefaults.colorHex;
+
+                            if (fontSize == 0)
+                                fontSize = masterDefaults.fontSize;
+
 
                             var textRunInfo = new TextRunInfo
                             {
                                 SlideNumber = slideNumber,
                                 ShapeType = "Table cell",
-                                ShapeId = "1", 
+                                ShapeId = "1",
                                 SampleText = sampleText,
                                 FontFamily = fontFamily,
                                 FontSizePt = fontSize,
@@ -153,7 +164,19 @@ namespace BrandInspector.Services
                 var eastAsianFont = runProperties.GetFirstChild<EastAsianFont>();
                 var complexScriptFont = runProperties.GetFirstChild<ComplexScriptFont>();
 
-                return latinFont?.Typeface?.Value ?? eastAsianFont?.Typeface?.Value ?? complexScriptFont?.Typeface?.Value ??  string.Empty;
+                return latinFont?.Typeface?.Value ?? eastAsianFont?.Typeface?.Value ?? complexScriptFont?.Typeface?.Value ?? string.Empty;
+            }
+            return null;
+        }
+        private string GetFontFamily(DefaultRunProperties runProperties)
+        {
+            if (runProperties != null)
+            {
+                var latinFont = runProperties.GetFirstChild<LatinFont>();
+                var eastAsianFont = runProperties.GetFirstChild<EastAsianFont>();
+                var complexScriptFont = runProperties.GetFirstChild<ComplexScriptFont>();
+
+                return latinFont?.Typeface?.Value ?? eastAsianFont?.Typeface?.Value ?? complexScriptFont?.Typeface?.Value ?? string.Empty;
             }
             return string.Empty;
         }
@@ -162,20 +185,91 @@ namespace BrandInspector.Services
         {
             if (runProperties != null && runProperties.FontSize != null)
                 return runProperties.FontSize.Value / 100.0;
-            
+
+            return 0.0;
+        }
+        private double GetFontSize(DefaultRunProperties runProperties)
+        {
+            if (runProperties != null && runProperties.FontSize != null)
+                return runProperties.FontSize.Value / 100.0;
+
             return 0.0;
         }
 
-        private string GetColorHex(Drawing.RunProperties runProperties)
+
+        private string GetColorHex(RunProperties runProperties)
         {
             if (runProperties?.GetFirstChild<SolidFill>()?.GetFirstChild<RgbColorModelHex>() is RgbColorModelHex rgbColor)
                 return $"#{rgbColor.Val}";
-            
+
+            return null;
+        }
+        private string GetColorHex(DefaultRunProperties runProperties)
+        {
+            if (runProperties?.GetFirstChild<SolidFill>()?.GetFirstChild<RgbColorModelHex>() is RgbColorModelHex rgbColor)
+                return $"#{rgbColor.Val}";
+
             return "#000000";
         }
+        // TODO : check nullable in  GetFontFamily GetFontSize GetColorHex
+        private (string font, double size, string color) GetMasterDefaults(SlidePart slidePart, string defaultColor, string defaultFont)
+        {
+            string font = defaultFont;
+            double size = 0.0; // TODO : should use real default number 
+            string color = defaultColor;
 
 
+            var layoutPart = slidePart.SlideLayoutPart;
+            var masterPart = layoutPart?.SlideMasterPart;
+
+            //  from master body styleee
+            if (masterPart?.SlideMaster?.TextStyles?.BodyStyle != null)
+            {
+                var bodyStyle = masterPart.SlideMaster.TextStyles.BodyStyle;
+                var level1Para = bodyStyle.Descendants<Drawing.Level1ParagraphProperties>().FirstOrDefault();
+                var defaultRun = level1Para?.Descendants<Drawing.DefaultRunProperties>().FirstOrDefault();
+
+                if (defaultRun != null)
+                {
+                   font = GetFontFamily(defaultRun);
+                   size = GetFontSize(defaultRun); 
+                   color = GetColorHex(defaultRun);
+                }
+            }
+
+
+            return (font, size, color);
+        }
+        private string GetDefaultColorFromTheme(ThemePart themePart)
+        {
+
+            var colorScheme = themePart?.Theme?.ThemeElements?.ColorScheme;
+            var dark1 = colorScheme?.Dark1Color?.GetFirstChild<RgbColorModelHex>();
+            if (dark1?.Val != null)
+                return $"#{dark1.Val}";
+
+            return "#000000";
+        }
+        private string GetDefaultFontFromTheme(ThemePart themePart)
+        {
+
+            var fontScheme = themePart?.Theme?.ThemeElements?.FontScheme;
+            var majorFont = fontScheme?.MajorFont?.LatinFont?.Typeface;
+            if (majorFont != null)
+                return majorFont;
+
+            var minorFont = fontScheme?.MinorFont?.LatinFont?.Typeface;
+            if (minorFont != null)
+                return minorFont;
+
+            return string.Empty;
+        }
 
     }
 }
 
+//var x = slidePart.Slide.OpenXmlElementContext;
+
+//var reader = new StreamReader(slidePart.GetStream());
+
+//var y =  reader.ReadToEnd();
