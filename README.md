@@ -128,8 +128,13 @@ The backend uses a custom exception handler that returns standardized responses 
 ### Main Window
 <img width="1917" height="1044" alt="Image" src="https://github.com/user-attachments/assets/8057e913-9ba4-416d-9b8b-0ca86f3d95b8" />
 
-### swagger page
+### Login window
+<img width="1166" height="525" alt="Image" src="https://github.com/user-attachments/assets/93b2d98a-6b95-4d70-9054-5b3df3092bde" />
+
+### Swagger page
 <img width="1917" height="1114" alt="Image" src="https://github.com/user-attachments/assets/abb1a09b-7100-4f68-8252-09b7c661e280" />
+
+
 # Notes
 - **Scanning is fully local (no API calls during scan)**
 - **Backend is only used for authentication and configuration**
