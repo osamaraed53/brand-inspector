@@ -26,11 +26,6 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
                 exception.GetType().Name,
                 context.Response.StatusCode = StatusCodes.Status404NotFound
             ),
-            UnauthorizedAccessException => (
-                exception.Message,
-                exception.GetType().Name,
-                context.Response.StatusCode = StatusCodes.Status400BadRequest
-            ),
             _ =>
             (
                 exception.Message,
@@ -39,7 +34,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             )
         };
 
-        ProblemDetails problemDetails = new ProblemDetails
+        ProblemDetails problemDetails = new()
         {
             Title = Title,
             Detail = Detail,
