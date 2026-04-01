@@ -1,11 +1,5 @@
-﻿using BrandInspector.Presenters;
+﻿using BrandInspector.Presenters.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,30 +7,28 @@ namespace BrandInspector.Views
 {
     public partial class LoginForm : Form , ILoginView
     {
-        private readonly LoginPresenter _presenter;
+        public ILoginPresenter Presenter;
         public LoginForm()
         {
             InitializeComponent();
         }
-
         public string Username { get; private set; }
-
         public string Password { get; private set; }
-
-
-
-
+ 
+        private void LoginForm_Load(object sender, EventArgs e) { }
+        private async void LoginBtn_Click_1(object sender, EventArgs e)
+        {
+            var response = await Presenter.Login(usernameTxt.Text, passwordTxt.Text);
+            if(!string.IsNullOrEmpty(response))
+                ShowError(response);
+        }
         public void ShowError(string message)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(message);
         }
 
-        private void LoginForm_Load(object sender, EventArgs e) { }
 
-        private void loginBtn_Click(object sender, EventArgs e)
-        {
-            //_presenter.(txtUser.Text, txtPass.Text);
 
-        }
+
     }
 }
