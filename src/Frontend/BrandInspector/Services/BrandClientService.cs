@@ -1,24 +1,43 @@
 ﻿using BrandInspector.Services.Interfaces;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace BrandInspector.Services
 {
     public class BrandClientService : IBrandClientService
     {
-        public IList<string> GetBrandColors()
+        private readonly ApiClient _apiClient;
+        public BrandClientService(ApiClient apiClient)
         {
-            return new List<string> { "#FF0000", "#00FF00", "#0000FF" };
+            _apiClient = apiClient;
+        }
+
+        public async Task<IList<string>> GetBrandColors()
+        {
+           var response = await _apiClient.GetAsync("/brand/colors");
+            return await Deserialize<string>(response);
 
         }
 
-        public IList<string> GetBrandFonts()
+        public async Task<IList<string>> GetBrandFonts()
         {
-            return new List<string> { "Arial", "Haettenschweiler", "Tahoma" };
+            var response = await _apiClient.GetAsync("/brand/fonts");
+            return await Deserialize<string>(response);
         }
 
-        public IList<double> GetBrandSizes()
+        public async Task<IList<double>> GetBrandSizes()
         {
-            return new List<double> { 16, 18, 20, 28, 24, 40  };
+            var response =  await _apiClient.GetAsync("/brand/sizes");
+            return await Deserialize<double>(response);
+
+        }
+
+        private async Task<List<T>> Deserialize<T>(HttpResponseMessage response)
+        {
+            var responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<List<T>>(responseJson);
         }
 
 
