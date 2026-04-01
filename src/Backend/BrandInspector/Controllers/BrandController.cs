@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BrandInspector.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("brand")]
 public class BrandController(IBrandConfigService brandConfigService) : ControllerBase

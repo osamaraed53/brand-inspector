@@ -19,7 +19,7 @@ public class AuthService(IConfiguration configuration, IApplicationDbContext con
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             throw new BadRequestException(ErrorMessages.IsRequired);
 
-        var user = await context.Users.SingleOrDefaultAsync(x => x.Username == username, cancellationToken) ?? throw new BadRequestException(ErrorMessages.InvalidCredentials);
+        User? user = await context.Users.SingleOrDefaultAsync(entity => entity.Username == username, cancellationToken) ?? throw new BadRequestException(ErrorMessages.InvalidCredentials);
 
         if (!VerifyPasswordHash(password, user.Password))
             throw new BadRequestException(ErrorMessages.InvalidCredentials);
@@ -32,7 +32,7 @@ public class AuthService(IConfiguration configuration, IApplicationDbContext con
         if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))  
             throw new BadRequestException(ErrorMessages.IsRequired);
 
-       if( await context.Users.AnyAsync(e=>e.Username == username, cancellationToken))
+       if( await context.Users.AnyAsync(entity=> entity.Username == username, cancellationToken))
             throw new BadRequestException(ErrorMessages.UserExist);
 
        User user = new() { Password = HashingPassword(password), Username =username };

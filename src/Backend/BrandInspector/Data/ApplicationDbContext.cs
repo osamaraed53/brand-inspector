@@ -25,24 +25,3 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
 
 }
-
-//builder.Entity<Brand>().HasData(SeedInitialData());
-//private IEnumerable<Brand> SeedInitialData()
-//{
-//    // Seed Brand
-
-//    return [ new Brand
-//                {
-//            Id = Guid.NewGuid(),
-//            Name = "DefaultBrand",
-//            BrandConfig = new BrandConfig
-//            {
-//                Fonts = ["Arial", "Helvetica Neue", "Tahoma"],
-//                Colors = ["#111827", "#5A1EFF", "#FFFFFF"],
-//                Sizes = [10, 12, 14, 16, 20, 24]
-//            }
-
-//        }
-//    ];
-
-//}

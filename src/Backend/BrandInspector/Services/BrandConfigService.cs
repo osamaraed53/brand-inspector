@@ -30,7 +30,7 @@ public class BrandConfigService(IApplicationDbContext context) : IBrandConfigSer
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
-        return brand.BrandConfig.Fonts ?? [];
+        return brand?.BrandConfig?.Fonts ?? [];
     }
 
     public async Task<IEnumerable<string>> GetBrandColors(CancellationToken cancellationToken)
@@ -40,7 +40,7 @@ public class BrandConfigService(IApplicationDbContext context) : IBrandConfigSer
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
-        return brand.BrandConfig.Colors ?? [];
+        return brand?.BrandConfig?.Colors ?? [];
     }
 
     public async Task<IEnumerable<double>> GetBrandSizes(CancellationToken cancellationToken)
@@ -50,6 +50,6 @@ public class BrandConfigService(IApplicationDbContext context) : IBrandConfigSer
 
         if (brand == null) throw new NotFoundException(ErrorMessages.NotFound);
 
-        return brand.BrandConfig.Sizes ?? [];
+        return brand?.BrandConfig?.Sizes ?? [];
     }
 }
