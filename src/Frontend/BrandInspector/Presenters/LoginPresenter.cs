@@ -21,7 +21,7 @@ namespace BrandInspector.Presenters
 
         public async Task<string> Login(string username, string password)
         {
-            var response = await _apiClient.LoginAsync( username, password );
+            var response =  await Task.Run(() =>_apiClient.LoginAsync( username, password ));
 
             if (response.Item1)
             {

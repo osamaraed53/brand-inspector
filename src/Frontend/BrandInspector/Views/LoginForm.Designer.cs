@@ -32,20 +32,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.loginBtn = new System.Windows.Forms.Button();
-            this.passwordTxt = new System.Windows.Forms.TextBox();
             this.usernameTxt = new System.Windows.Forms.TextBox();
             this.usernameLabel = new System.Windows.Forms.Label();
-            this.passwordLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.passwordTxt = new System.Windows.Forms.TextBox();
+            this.loginBtn = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -67,51 +62,14 @@
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.passwordTxt, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.usernameTxt, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.usernameLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.loginBtn, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tableLayoutPanel1.SetColumnSpan(this.panel3, 4);
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Controls.Add(this.label1);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.Name = "panel3";
-            this.tableLayoutPanel1.SetRowSpan(this.panel3, 3);
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel4.Controls.Add(this.label2);
-            this.panel4.Controls.Add(this.loginBtn);
-            this.panel4.Controls.Add(this.passwordTxt);
-            this.panel4.Controls.Add(this.usernameTxt);
-            this.panel4.Controls.Add(this.usernameLabel);
-            this.panel4.Controls.Add(this.passwordLabel);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            //this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label2.Name = "label2";
-            // 
-            // loginBtn
-            // 
-            this.loginBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            resources.ApplyResources(this.loginBtn, "loginBtn");
-            this.loginBtn.Name = "loginBtn";
-            this.loginBtn.UseVisualStyleBackColor = false;
-            this.loginBtn.Click += new System.EventHandler(this.LoginBtn_Click_1);
-            // 
-            // passwordTxt
-            // 
-            resources.ApplyResources(this.passwordTxt, "passwordTxt");
-            this.passwordTxt.Name = "passwordTxt";
-            this.passwordTxt.UseSystemPasswordChar = true;
+            //this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // usernameTxt
             // 
@@ -123,15 +81,33 @@
             resources.ApplyResources(this.usernameLabel, "usernameLabel");
             this.usernameLabel.Name = "usernameLabel";
             // 
-            // passwordLabel
+            // label2
             // 
-            resources.ApplyResources(this.passwordLabel, "passwordLabel");
-            this.passwordLabel.Name = "passwordLabel";
+            resources.ApplyResources(this.label2, "label2");
+            this.tableLayoutPanel1.SetColumnSpan(this.label2, 2);
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label2.Name = "label2";
+            //this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            // 
+            // passwordTxt
+            // 
+            resources.ApplyResources(this.passwordTxt, "passwordTxt");
+            this.passwordTxt.Name = "passwordTxt";
+            this.passwordTxt.UseSystemPasswordChar = true;
+            // 
+            // loginBtn
+            // 
+            resources.ApplyResources(this.loginBtn, "loginBtn");
+            this.loginBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tableLayoutPanel1.SetColumnSpan(this.loginBtn, 2);
+            this.loginBtn.Name = "loginBtn";
+            this.loginBtn.UseVisualStyleBackColor = false;
+            this.loginBtn.Click += new System.EventHandler(this.LoginBtn_Click_1);
             // 
             // LoginForm
             // 
@@ -143,10 +119,7 @@
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -155,14 +128,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox usernameTxt;
         private System.Windows.Forms.Label usernameLabel;
-        private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox passwordTxt;
         private System.Windows.Forms.Button loginBtn;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

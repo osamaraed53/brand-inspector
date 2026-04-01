@@ -18,7 +18,7 @@ namespace BrandInspector.Views
         private void LoginForm_Load(object sender, EventArgs e) { }
         private async void LoginBtn_Click_1(object sender, EventArgs e)
         {
-            var response = await Presenter.Login(usernameTxt.Text, passwordTxt.Text);
+            var response = await  Presenter.Login(usernameTxt.Text, passwordTxt.Text);
             if(!string.IsNullOrEmpty(response))
                 ShowError(response);
         }
@@ -27,7 +27,7 @@ namespace BrandInspector.Views
             MessageBox.Show(message);
         }
 
-
+     
 
 
     }
