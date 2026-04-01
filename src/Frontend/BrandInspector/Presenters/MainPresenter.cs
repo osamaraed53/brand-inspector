@@ -29,15 +29,16 @@ namespace BrandInspector.Presenters
             _mainView = mainView;
             _appContext = appContext;
         }
-        public void OnFileSelected(string path)
+        public bool ValidateFileOnSelected(string path)
         {
             if (string.IsNullOrWhiteSpace(path) ||
                 System.IO.Path.GetExtension(path).ToLower() != ".pptx" || !_scanner.IsOpenPPTXValid(path))
             {
                 _mainView.SelectedFilePath = string.Empty;
                 _mainView.ShowMessage(ErrorMessages.InvalidFile);
-                return;
+                return false;
             }
+            return true;
         }
 
         public async Task<ResultViewModel> ScanFonts()

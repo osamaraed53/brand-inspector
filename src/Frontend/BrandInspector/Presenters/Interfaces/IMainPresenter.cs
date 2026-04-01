@@ -5,7 +5,7 @@ namespace BrandInspector.Presenters.Interfaces
 {
     public interface IMainPresenter
     {
-        void OnFileSelected(string path);
+        bool ValidateFileOnSelected(string path);
         Task<ResultViewModel> ScanFonts();
         Task<ResultViewModel> ScanColors();
         Task<ResultViewModel> ScanSize();

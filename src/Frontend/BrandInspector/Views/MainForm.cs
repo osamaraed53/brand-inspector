@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BrandInspector.Views
@@ -37,7 +38,7 @@ namespace BrandInspector.Views
             lblErrors.Text = $"Errors: {errors}";
         }
 
-        private void BrowseBtn_Click(object sender, EventArgs e)
+        private async void BrowseBtn_Click(object sender, EventArgs e)
         {
             using (var dialog = new OpenFileDialog())
             {
@@ -47,8 +48,12 @@ namespace BrandInspector.Views
                 {
                     SelectedFilePath = dialog.FileName;
                     filePathTxt.Text = SelectedFilePath;
+                    if ( !await Task.Run(()=> Presenter.ValidateFileOnSelected(SelectedFilePath)))
+                    {
+                        filePathTxt.Text = SelectedFilePath = string.Empty;
 
-                    Presenter.OnFileSelected(SelectedFilePath);
+                    }
+
                 }
             }
         }

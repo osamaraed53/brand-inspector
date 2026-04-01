@@ -8,23 +8,6 @@ using System.Threading.Tasks;
 
 namespace BrandInspector.Services
 {
-    public class LoginResponse
-    {
-        public string AccessToken { get; set; }
-
-    }
-    public class ErrorResponse
-    {
-
-        public string Title { get; set; }
-        public int Status { get; set; }
-        public string Detail { get; set; }
-        public string Instance { get; set; }
-        public string TraceId { get; set; }
-    }
-
-
-
     public class ApiClient
     {
         private readonly HttpClient _httpClient;
@@ -74,6 +57,22 @@ namespace BrandInspector.Services
                 return (true, responseJson);
             }
         }
+        public class LoginResponse
+        {
+            public string AccessToken { get; set; }
+
+        }
+        public class ErrorResponse
+        {
+
+            public string Title { get; set; }
+            public int Status { get; set; }
+            public string Detail { get; set; }
+            public string Instance { get; set; }
+            public string TraceId { get; set; }
+        }
+
+
     }
 }
 
